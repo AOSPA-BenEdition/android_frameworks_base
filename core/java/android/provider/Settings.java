@@ -4815,6 +4815,24 @@ public final class Settings {
         public static final String PULSE_ON_NEW_TRACKS = "pulse_on_new_tracks";
 
         /**
+         * Whether to enable charge battery warning
+         * @hide
+         */
+        public static final String BATTERY_LEVEL_CHARGE_ALARM_ENABLED = "battery_level_charge_alarm_enabled";
+
+        /** @hide */
+        private static final Validator BATTERY_LEVEL_CHARGE_ALARM_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Change level for charge battery warning
+         * @hide
+         */
+        public static final String SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND = "battery_level_charge_seek_bar";
+
+        /** @hide */
+        private static final Validator SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5029,6 +5047,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT);
             PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_AUTOMATIC);
             PRIVATE_SETTINGS.add(NAVIGATION_HANDLE_WIDTH);
+            PRIVATE_SETTINGS.add(BATTERY_LEVEL_CHARGE_ALARM_ENABLED);
+            PRIVATE_SETTINGS.add(SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND);
         }
 
         /**
@@ -5130,6 +5150,8 @@ public final class Settings {
             VALIDATORS.put(NAVIGATION_HANDLE_WIDTH, NAVIGATION_HANDLE_WIDTH_VALIDATOR);
             VALIDATORS.put(ACCELEROMETER_ROTATION_ANGLES,
                     ACCELEROMETER_ROTATION_ANGLES_VALIDATOR);
+            VALIDATORS.put(BATTERY_LEVEL_CHARGE_ALARM_ENABLED, BATTERY_LEVEL_CHARGE_ALARM_ENABLED_VALIDATOR);
+            VALIDATORS.put(SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND, SEEK_BAR_BATTERY_CHARGE_LEVEL_SOUND_VALIDATOR);
         }
 
         /**
@@ -10108,6 +10130,12 @@ public final class Settings {
         public static final String CHARGING_VIBRATION_ENABLED = "charging_vibration_enabled";
 
         private static final Validator CHARGING_VIBRATION_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Ringtone for battery charge level warning.
+         * @hide
+         */
+        public static final String BATTERY_LEVEL_CHARGE_SOUND_ALARM = "battery_level_charge_ringtone";
 
         /**
          * Whether we keep the device on while the device is plugged in.
