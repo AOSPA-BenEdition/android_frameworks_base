@@ -83,6 +83,7 @@ public class QSContainerImpl extends FrameLayout implements
     private int mQsBackGroundColor;
     private int mHeaderImageHeight;
     private int mQsBackGroundColorWall;
+    private boolean mSetQsFromAccent;
     private boolean mSetQsFromResources;
     private boolean mSetQsFromWall;
     private boolean mForceHideQsStatusBar;
@@ -173,6 +174,9 @@ public class QSContainerImpl extends FrameLayout implements
                     .getUriFor(Settings.System.QS_PANEL_BG_USE_WALL), false,
                     this, UserHandle.USER_ALL);
             getContext().getContentResolver().registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.QS_PANEL_BG_USE_ACCENT), false,
+                    this, UserHandle.USER_ALL);
+            getContext().getContentResolver().registerContentObserver(Settings.System
                     .getUriFor(Settings.System.QS_PANEL_BG_USE_FW), false,
                     this, UserHandle.USER_ALL);
         }
@@ -200,11 +204,16 @@ public class QSContainerImpl extends FrameLayout implements
         int userQsFwSetting = Settings.System.getIntForUser(getContext().getContentResolver(),
                     Settings.System.QS_PANEL_BG_USE_FW, 1, UserHandle.USER_CURRENT);
         mSetQsFromResources = userQsFwSetting == 1;
+        mSetQsFromAccent = Settings.System.getIntForUser(getContext().getContentResolver(),
+                    Settings.System.QS_PANEL_BG_USE_ACCENT, 0, UserHandle.USER_CURRENT) == 1;
+        updateResources();
         setQsBackground();
     }
 
     private void setQsBackground() {
-        int currentColor = mSetQsFromWall ? mQsBackGroundColorWall : mQsBackGroundColor;
+        int currentColor = mSetQsFromAccent  
+                           ? getContext().getResources().getColor(R.color.accent_device_default_light) 
+                           :mSetQsFromWall ? mQsBackGroundColorWall : mQsBackGroundColor;
         if (mSetQsFromResources) {
             mQsBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
             try {
