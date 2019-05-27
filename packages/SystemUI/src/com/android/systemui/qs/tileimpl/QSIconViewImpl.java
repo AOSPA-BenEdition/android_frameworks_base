@@ -178,7 +178,14 @@ public class QSIconViewImpl extends QSIconView {
             ((AlphaControlledSlashImageView)iv)
                     .setFinalImageTintList(ColorStateList.valueOf(toColor));
         }
-        if (mAnimationEnabled && ValueAnimator.areAnimatorsEnabled()) {
+
+        boolean setQsUseNewTint = System.getIntForUser(getContext().getContentResolver(),
+                     System.QS_PANEL_BG_USE_NEW_TINT, 0, UserHandle.USER_CURRENT) == 1;
+
+        boolean setQsFromResources = System.getIntForUser(getContext().getContentResolver(),
+                     System.QS_PANEL_BG_USE_FW, 1, UserHandle.USER_CURRENT) == 1;
+
+        if (mAnimationEnabled  && setQsFromResources && ValueAnimator.areAnimatorsEnabled()) {
             final float fromAlpha = Color.alpha(fromColor);
             final float toAlpha = Color.alpha(toColor);
             final float fromChannel = Color.red(fromColor);
@@ -191,10 +198,7 @@ public class QSIconViewImpl extends QSIconView {
                 int alpha = (int) (fromAlpha + (toAlpha - fromAlpha) * fraction);
                 int channel = (int) (fromChannel + (toChannel - fromChannel) * fraction);
 
-                boolean setQsFromResources = System.getIntForUser(getContext().getContentResolver(),
-                            System.QS_PANEL_BG_USE_FW, 1, UserHandle.USER_CURRENT) == 1;
-
-                if (setQsUseNewTint && setQsFromResources) {
+                if (setQsUseNewTint) {
                     setTint(iv, toColor);
                 } else {
                     setTint(iv, Color.argb(alpha, channel, channel, channel));
