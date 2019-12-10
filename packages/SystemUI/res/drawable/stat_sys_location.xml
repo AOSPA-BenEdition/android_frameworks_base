@@ -1,3 +1,4 @@
+
 <!--
   ~ Copyright (C) 2014 The Android Open Source Project
   ~
@@ -14,6 +15,4 @@
   ~ limitations under the License
   -->
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="2.5dp"
-    android:insetRight="2.5dp"
     android:drawable="@drawable/ic_location" />
