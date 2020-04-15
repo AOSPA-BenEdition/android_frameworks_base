@@ -46,5 +46,12 @@ public class ThemesUtils {
             "com.android.theme.materialocean.system",
             "com.android.theme.materialocean.systemui",
     };
+
+    public static final String[] QS_HEADER_THEMES = {
+            "com.android.systemui.qsheader.grey",
+            "com.android.systemui.qsheader.lightgrey",
+            "com.android.systemui.qsheader.accent", 
+            "com.android.systemui.qsheader.transparent",
+    };
 }
 
